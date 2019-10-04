@@ -13,6 +13,7 @@ public class SceneLoader : MonoBehaviour
     public Slider sliderBar;
     public GameObject quotation;   
     public Image img;
+    public Animator anim;
 
     // Use this for initialization
     void Start()
@@ -43,6 +44,9 @@ public class SceneLoader : MonoBehaviour
             // ...change the instruction text to read "Loading..."
             loadingText.text = "Loading...";
 
+            //Get quotation from file and load in textfield while the main screen loads
+            quoteText.text = quotation.GetComponent<TextHandler>().ReadData("quote");
+
             // ...and start a coroutine that will load the desired scene.
             StartCoroutine(LoadNewScene(LoadingSceneName));
 
@@ -56,7 +60,7 @@ public class SceneLoader : MonoBehaviour
     /// <returns></returns>
     IEnumerator LoadNewScene(string sceneName)
     {
-
+        yield return new WaitForSeconds(2f);
         // Start an asynchronous operation to load the scene that was passed to the LoadNewScene coroutine.
         AsyncOperation async = SceneManager.LoadSceneAsync(sceneName);
 
@@ -65,16 +69,23 @@ public class SceneLoader : MonoBehaviour
         {
             float progress = Mathf.Clamp01(async.progress / 0.9f);
             sliderBar.value = progress;
-            loadingText.text = progress * 100f + "%";
-            //Get quotation from file and load in textfield while the main screen loads
-            quoteText.text = quotation.GetComponent<TextHandler>().ReadData("quote");
-            //Play animation fade in
-            Animator anim = img.GetComponent<Animator>();
-            anim.enabled = true;
-            anim.Play(1);
+            loadingText.text = progress * 100f + "%";            
+            //Play animation 
+            StartCoroutine(Fade());           
             yield return null;
 
         }
+
+    }
+    /// <summary>
+    /// This coroutine plays fade animation
+    /// </summary>
+    /// <returns></returns>
+    IEnumerator Fade()
+    {
+        anim.enabled = true;
+        anim.SetBool("Fade", true);
+        yield return new WaitUntil(() => img.color.a == 1);
 
     }
 }

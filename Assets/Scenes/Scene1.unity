@@ -216,6 +216,7 @@ MonoBehaviour:
   sliderBar: {fileID: 2090584690}
   quotation: {fileID: 1546115473}
   img: {fileID: 509698085}
+  anim: {fileID: 509698087}
 --- !u!4 &176697751
 Transform:
   m_ObjectHideFlags: 0
@@ -729,8 +730,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -107, y: 125.2}
-  m_SizeDelta: {x: 343, y: 250.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 585.8, y: 413.2}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1303032186
 GameObject:
